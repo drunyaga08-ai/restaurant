@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sage & Stone — Modern Kitchen</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Playfair Display (elegant headings) + Inter (clean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #fdfcf9;
+      color: #2c2c2c;
+      scroll-behavior: smooth;
+    }
+    .font-serif-display {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* ---------- Hero background with warm overlay ---------- */
+    .hero-bg {
+      background-image: linear-gradient(rgba(20, 15, 10, 0.65), rgba(20, 15, 10, 0.55)),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes fadeUp {
+      0%   { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      0%   { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes pulseSlow {
+      0%   { opacity: 1; }
+      50%  { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    @keyframes bounceSlow {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(8px); }
+    }
+    .animate-fadeUp {
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+    }
+    .animate-fadeIn {
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    .animate-pulse-slow {
+      animation: pulseSlow 2.5s ease-in-out infinite;
+    }
+    .animate-bounce-slow {
+      animation: bounceSlow 2s ease-in-out infinite;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+
+    /* ---------- Dish card hover ---------- */
+    .dish-card {
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+    }
+    .dish-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 40px -15px rgba(80, 50, 20, 0.25);
+    }
+    .dish-card .dish-img {
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dish-card:hover .dish-img {
+      transform: scale(1.07);
+    }
+
+    /* ---------- Nav underline ---------- */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1.5px;
+      bottom: -5px;
+      left: 0;
+      background-color: #ffffff;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* ---------- Elegant divider ---------- */
+    .divider-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .divider-ornament::before,
+    .divider-ornament::after {
+      content: '';
+      height: 1px;
+      width: 40px;
+      background-color: #c8b298;
+    }
+
+    /* ---------- Button shine ---------- */
+    .btn-shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: left 0.6s ease;
+    }
+    .btn-shine:hover::before {
+      left: 100%;
+    }
+
+    /* subtle texture */
+    .bg-warm-texture {
+      background-color: #fdfcf9;
+      background-image: radial-gradient(#e8dfd0 0.5px, transparent 0.5px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ============================================================
+       SECTION 1: HERO — Welcome & Reservation
+  ============================================================= -->
+  <section class="hero-bg min-h-screen flex flex-col relative">
+
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between px-6 py-6 md:px-12 max-w-7xl mx-auto w-full animate-fadeIn relative z-20">
+      <a href="#" class="flex items-center gap-2 group">
+        <i class="fas fa-leaf text-2xl text-amber-200 transition-transform duration-300 group-hover:rotate-12"></i>
+        <span class="text-2xl font-serif-display font-semibold tracking-wide text-white">Sage &amp; Stone</span>
+      </a>
+      <div class="hidden md:flex items-center gap-9 text-white/90 text-sm font-medium tracking-wide">
+        <a href="#menu" class="nav-link hover:text-white transition">Menu</a>
+        <a href="#story" class="nav-link hover:text-white transition">Our Story</a>
+        <a href="#visit" class="nav-link hover:text-white transition">Visit</a>
+      </div>
+      <a href="#reserve" class="bg-amber-100/95 hover:bg-amber-100 text-stone-800 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg">
+        Reserve
+      </a>
+    </nav>
+
+    <!-- Hero content -->
+    <div class="flex-1 flex items-center justify-center px-6 pb-24 relative z-10">
+      <div class="text-center max-w-3xl mx-auto">
+
+        <p class="text-amber-200/90 tracking-[0.3em] uppercase text-xs md:text-sm mb-6 animate-fadeUp">
+          Est. 2014 · Farm to Table
+        </p>
+
+        <h1 class="font-serif-display text-5xl md:text-7xl lg:text-8xl text-white leading-[1.05] animate-fadeUp delay-100">
+          Simple food,<br>
+          <span class="italic font-normal text-amber-100">honestly made.</span>
+        </h1>
+
+        <p class="text-white/85 text-lg md:text-xl mt-8 max-w-xl mx-auto leading-relaxed animate-fadeUp delay-200">
+          Seasonal ingredients, slow mornings, and a kitchen that never rushes. Join us for a meal that tastes like home.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mt-10 animate-fadeUp delay-300">
+          <a href="#reserve" class="btn-shine bg-amber-100 hover:bg-amber-50 text-stone-900 font-semibold px-8 py-4 rounded-full transition-all duration-200 shadow-xl transform hover:scale-105 inline-flex items-center gap-2">
+            <i class="fas fa-calendar-check"></i> Book a table
+          </a>
+          <a href="#menu" class="border border-white/40 hover:bg-white/10 backdrop-blur-sm text-white font-medium px-8 py-4 rounded-full transition-all duration-200 inline-flex items-center gap-2">
+            <i class="fas fa-utensils"></i> See the menu
+          </a>
+        </div>
+
+        <!-- small info strip -->
+        <div class="mt-14 flex flex-wrap justify-center gap-x-10 gap-y-4 text-white/80 text-sm animate-fadeUp delay-400">
+          <span class="flex items-center gap-2"><i class="fas fa-clock text-amber-200"></i> Open Tue – Sun · 5pm – 11pm</span>
+          <span class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-amber-200"></i> 42 Willow Lane, Downtown</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 text-lg animate-bounce-slow z-10">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 2: SIGNATURE DISHES (Menu Highlight)
+  ============================================================= -->
+  <section id="menu" class="bg-warm-texture py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Section heading -->
+      <div class="text-center mb-16 animate-fadeUp">
+        <div class="divider-ornament mb-5">
+          <span class="text-xs tracking-[0.3em] uppercase text-stone-500 font-medium">From our kitchen</span>
+        </div>
+        <h2 class="font-serif-display text-4xl md:text-5xl text-stone-900">
+          Signature dishes
+        </h2>
+        <p class="text-stone-500 mt-5 max-w-xl mx-auto leading-relaxed">
+          A small menu, changed with the seasons. Every plate is made from scratch, every day.
+        </p>
+      </div>
+
+      <!-- Dish cards grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Dish 1 -->
+        <div class="dish-card bg-white rounded-3xl overflow-hidden shadow-md border border-stone-100 animate-fadeUp delay-100">
+          <div class="relative h-64 overflow-hidden">
+            <div class="dish-img h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2080&auto=format&fit=crop');"></div>
+            <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-stone-700 text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full shadow">
+              Vegetarian
+            </span>
+          </div>
+          <div class="p-7">
+            <div class="flex justify-between items-start gap-4">
+              <h3 class="font-serif-display text-2xl text-stone-900 leading-tight">Harvest Grain Bowl</h3>
+              <span class="text-amber-700 font-semibold whitespace-nowrap">$18</span>
+            </div>
+            <p class="text-stone-500 text-sm leading-relaxed mt-3">
+              Roasted squash, ancient grains, whipped feta, pomegranate, and a citrus-herb dressing.
+            </p>
+            <div class="flex items-center gap-4 mt-5 text-xs text-stone-400">
+              <span class="flex items-center gap-1.5"><i class="fas fa-seedling text-green-600"></i> Vegan option</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-pepper-hot text-red-400"></i> Mild</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dish 2 (featured) -->
+        <div class="dish-card bg-white rounded-3xl overflow-hidden shadow-xl border-2 border-amber-200 relative animate-fadeUp delay-200">
+          <span class="absolute top-4 right-4 z-10 bg-amber-600 text-white text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full shadow animate-pulse-slow">
+            Chef's pick
+          </span>
+          <div class="relative h-64 overflow-hidden">
+            <div class="dish-img h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2069&auto=format&fit=crop');"></div>
+          </div>
+          <div class="p-7">
+            <div class="flex justify-between items-start gap-4">
+              <h3 class="font-serif-display text-2xl text-stone-900 leading-tight">Slow-Braised Short Rib</h3>
+              <span class="text-amber-700 font-semibold whitespace-nowrap">$32</span>
+            </div>
+            <p class="text-stone-500 text-sm leading-relaxed mt-3">
+              Eight-hour braise, creamy polenta, charred broccolini, and a red wine reduction.
+            </p>
+            <div class="flex items-center gap-4 mt-5 text-xs text-stone-400">
+              <span class="flex items-center gap-1.5"><i class="fas fa-fire text-orange-500"></i> House favorite</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-wine-glass text-red-700"></i> Pairs with red</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dish 3 -->
+        <div class="dish-card bg-white rounded-3xl overflow-hidden shadow-md border border-stone-100 animate-fadeUp delay-300">
+          <div class="relative h-64 overflow-hidden">
+            <div class="dish-img h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=2070&auto=format&fit=crop');"></div>
+            <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-stone-700 text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full shadow">
+              Dessert
+            </span>
+          </div>
+          <div class="p-7">
+            <div class="flex justify-between items-start gap-4">
+              <h3 class="font-serif-display text-2xl text-stone-900 leading-tight">Burnt Honey Panna Cotta</h3>
+              <span class="text-amber-700 font-semibold whitespace-nowrap">$12</span>
+            </div>
+            <p class="text-stone-500 text-sm leading-relaxed mt-3">
+              Silky vanilla bean cream, wildflower honey, toasted pistachio, and fresh berries.
+            </p>
+            <div class="flex items-center gap-4 mt-5 text-xs text-stone-400">
+              <span class="flex items-center gap-1.5"><i class="fas fa-ice-cream text-pink-400"></i> Gluten-free</span>
+              <span class="flex items-center gap-1.5"><i class="fas fa-star text-amber-400"></i> Guest favorite</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- link to full menu -->
+      <div class="text-center mt-14 animate-fadeUp delay-400">
+        <a href="#" class="group inline-flex items-center gap-2 text-amber-800 hover:text-amber-900 font-medium border-b border-amber-300 hover:border-amber-800 pb-1 transition">
+          View the full menu
+          <i class="fas fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 3: STORY + VISIT (Split layout)
+  ============================================================= -->
+  <section id="story" class="py-24 px-6 md:px-12 bg-white">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: image collage -->
+      <div class="relative animate-fadeUp">
+        <div class="rounded-3xl overflow-hidden shadow-2xl h-[500px]">
+          <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop"
+               alt="Our dining room"
+               class="w-full h-full object-cover">
+        </div>
+        <!-- small overlapping image -->
+        <div class="hidden md:block absolute -bottom-8 -right-8 w-56 h-56 rounded-2xl overflow-hidden border-8 border-white shadow-2xl animate-fadeIn delay-300">
+          <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?q=80&w=1974&auto=format&fit=crop"
+               alt="Fresh ingredients"
+               class="w-full h-full object-cover">
+        </div>
+        <!-- badge -->
+        <div class="absolute top-6 -left-6 bg-amber-100 text-stone-800 rounded-2xl shadow-xl px-5 py-4 hidden md:block animate-fadeIn delay-400">
+          <p class="font-serif-display text-3xl font-bold leading-none">10</p>
+          <p class="text-xs tracking-wide uppercase text-stone-500 mt-1">Years of<br>cooking</p>
+        </div>
+      </div>
+
+      <!-- Right: story text + hours -->
+      <div class="animate-fadeUp delay-200">
+        <div class="divider-ornament mb-5 justify-start">
+          <span class="text-xs tracking-[0.3em] uppercase text-stone-500 font-medium">Our story</span>
+        </div>
+
+        <h2 class="font-serif-display text-4xl md:text-5xl text-stone-900 leading-tight">
+          A neighborhood kitchen<br>
+          <span class="italic font-normal text-amber-800">with old-world roots.</span>
+        </h2>
+
+        <p class="text-stone-600 mt-6 leading-relaxed">
+          Sage &amp; Stone began as a tiny corner bistro with eight tables and one wood-fired oven.
+          A decade later, we still bake our own bread, churn our own butter, and source nearly
+          everything from farms within 60 miles.
+        </p>
+
+        <p class="text-stone-600 mt-4 leading-relaxed">
+          We believe good food doesn't need to be complicated — it just needs to be made with care.
+        </p>
+
+        <!-- signature -->
+        <div class="mt-8 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-800">
+            <i class="fas fa-utensil-spoon"></i>
+          </div>
+          <div>
+            <p class="font-serif-display text-lg text-stone-900">Elena Marchetti</p>
+            <p class="text-xs text-stone-500 tracking-wide uppercase">Founder &amp; Head Chef</p>
+          </div>
+        </div>
+
+        <!-- Hours / Info grid -->
+        <div id="visit" class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-stone-200 pt-8">
+          <div>
+            <h4 class="text-xs tracking-[0.2em] uppercase text-stone-500 font-semibold mb-3 flex items-center gap-2">
+              <i class="fas fa-clock text-amber-700"></i> Hours
+            </h4>
+            <ul class="text-sm text-stone-600 space-y-1.5">
+              <li class="flex justify-between gap-4"><span>Tue – Thu</span><span class="text-stone-800">5:00 – 10:00</span></li>
+              <li class="flex justify-between gap-4"><span>Fri – Sat</span><span class="text-stone-800">5:00 – 11:30</span></li>
+              <li class="flex justify-between gap-4"><span>Sunday</span><span class="text-stone-800">11:00 – 9:00</span></li>
+              <li class="flex justify-between gap-4 text-stone-400"><span>Monday</span><span>Closed</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-xs tracking-[0.2em] uppercase text-stone-500 font-semibold mb-3 flex items-center gap-2">
+              <i class="fas fa-map-marker-alt text-amber-700"></i> Find us
+            </h4>
+            <p class="text-sm text-stone-600 leading-relaxed">
+              42 Willow Lane<br>
+              Downtown District<br>
+              Portland, OR 97204
+            </p>
+            <a href="#" class="inline-flex items-center gap-1.5 text-sm text-amber-800 hover:text-amber-900 font-medium mt-3 border-b border-amber-300 hover:border-amber-800 pb-0.5 transition">
+              Get directions <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Reserve button -->
+        <div id="reserve" class="mt-10">
+          <a href="#" class="btn-shine inline-flex items-center gap-3 bg-stone-900 hover:bg-stone-800 text-white font-semibold px-8 py-4 rounded-full transition-all duration-200 shadow-lg transform hover:scale-105">
+            <i class="fas fa-calendar-check text-amber-200"></i>
+            Reserve your table
+          </a>
+          <p class="text-xs text-stone-400 mt-3">Walk-ins welcome · Parties of 6+ please call ahead</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================= -->
+  <footer class="bg-stone-900 text-stone-400 py-12 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-leaf text-xl text-amber-200"></i>
+          <span class="font-serif-display text-lg text-white">Sage &amp; Stone</span>
+        </div>
+
+        <div class="flex items-center gap-6 text-sm">
+          <a href="#" class="hover:text-amber-200 transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-amber-200 transition"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-amber-200 transition"><i class="fab fa-x-twitter"></i></a>
+        </div>
+
+        <p class="text-xs text-stone-500">© 2025 Sage &amp; Stone Kitchen. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       Scroll reveal script
+  ============================================================= -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.animate-fadeUp, .animate-fadeIn').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html></html>
